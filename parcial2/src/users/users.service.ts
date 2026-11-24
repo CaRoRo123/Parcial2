@@ -23,8 +23,15 @@ export class UsersService {
     return this.userRepository.find({ relations: { roles: true }, select: { id: true, email: true, name: true, roles: { id: true, role_name: true, description: true } } });
   }
 
-  findOne(id: string) {
-    return this.userRepository.findOne({ where: { id }, relations: { roles: true } });
+  async findOne(id: string) {
+    const usuario = await this.userRepository.findOne({ where: { id }, relations: { roles: true } });
+    if (!usuario)
+    {
+      throw new NotFoundException(' No se encontro un usuario con el id ${id} ');
+    }
+    const {password, ...userSincontrasena} = usuario 
+
+    return userSincontrasena
   }
 
   async asignarRoles(id: string, rolesEntrada: AsignarRolesDTO) {

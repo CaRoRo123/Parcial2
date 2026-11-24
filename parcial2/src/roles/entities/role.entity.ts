@@ -4,6 +4,7 @@ import { PrimaryGeneratedColumn } from 'typeorm';
 import { ManyToMany} from 'typeorm';
 import { CreateDateColumn } from 'typeorm';
 import { User } from '../../users/entities/user.entity.js';
+import { IsOptional } from 'class-validator';
 
 @Entity('roles')
 export class Role {
@@ -14,6 +15,7 @@ export class Role {
     @Column({unique: true})
     role_name: string;
 
+    @IsOptional()
     @Column()
     description?: string;
 
@@ -22,6 +24,8 @@ export class Role {
 
     @ManyToMany(() => User, (user) => user.roles)
     users: User[];
+
+    
 }
 
 

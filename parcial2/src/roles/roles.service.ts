@@ -13,6 +13,7 @@ export class RolesService {
     const exists = await this.roleRepository.findOne({ where: { role_name: dto.role_name } });
     if (exists) throw new ConflictException(`'${dto.role_name}' ya existe`);
     const role = await this.roleRepository.save(this.roleRepository.create(dto));
+    
     return { message: 'Rol creado con éxito', roleId: role.id };
   }
 
