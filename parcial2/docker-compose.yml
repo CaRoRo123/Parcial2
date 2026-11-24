@@ -4,14 +4,14 @@ services:
     container_name: preparcial_postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password123
-      POSTGRES_DB: preparcial_db
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASS:?DB_PASS must be set in .env}
+      POSTGRES_DB: ${DB_NAME:-preparcial_db}
     ports:
-      - "${POSTGRES_HOST_PORT:-5433}:5432"
+      - "${POSTGRES_HOST_PORT:-5434}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/001-initial-setup.sql:/docker-entrypoint-initdb.d/01-initial-setup.sql:ro
 
 volumes:
   postgres_data:

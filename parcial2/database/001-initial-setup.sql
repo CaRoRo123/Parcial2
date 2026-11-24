@@ -1,4 +1,4 @@
-﻿-- Esquema PostgreSQL alineado con las entidades TypeORM y el enunciado.
+-- Esquema PostgreSQL alineado con las entidades TypeORM y el enunciado.
 CREATE TABLE IF NOT EXISTS roles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   role_name VARCHAR NOT NULL UNIQUE,
@@ -24,10 +24,12 @@ CREATE TABLE IF NOT EXISTS user_roles (
 
 INSERT INTO roles (role_name, description) VALUES
   ('admin', 'Administrador total del sistema'),
-  ('supervisor', 'Rol de supervisión')
+  ('supervisor', 'Rol de supervision')
 ON CONFLICT (role_name) DO NOTHING;
 
--- Password inicial: Admin123456! (hash scrypt del paquete @nestjs/authentication).
+-- Cuentas de prueba:
+-- admin@uniandes.edu.co y user@uniandes.edu.co; ambas usan Admin123456!.
+-- El valor guardado es un hash scrypt generado por @nestjs/authentication.
 INSERT INTO users (email, password, name, phone, is_active) VALUES
   ('admin@uniandes.edu.co', '$scrypt$ln=17,r=8,p=1$H6G5QfW7pkm7GNtenoqX4g$I9MxRaYCCsz1VNHxcClZF9JgqknifDRMQ6qKscvZpWTwKUPkm6M3SaYdry2YDEeoW0e2y7oRxjxG6pfcaYOndw', 'Usuario Admin', '3001112233', true),
   ('user@uniandes.edu.co', '$scrypt$ln=17,r=8,p=1$H6G5QfW7pkm7GNtenoqX4g$I9MxRaYCCsz1VNHxcClZF9JgqknifDRMQ6qKscvZpWTwKUPkm6M3SaYdry2YDEeoW0e2y7oRxjxG6pfcaYOndw', 'Usuario Normal', '3004445566', true)

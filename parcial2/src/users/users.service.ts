@@ -27,7 +27,7 @@ export class UsersService {
     const usuario = await this.userRepository.findOne({ where: { id }, relations: { roles: true } });
     if (!usuario)
     {
-      throw new NotFoundException(' No se encontro un usuario con el id ${id} ');
+      throw new NotFoundException("No se encontro un usuario con el id ${id}" );
     }
     const {password, ...userSincontrasena} = usuario 
 

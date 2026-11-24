@@ -16,7 +16,7 @@ export class Role {
     role_name: string;
 
     @IsOptional()
-    @Column()
+    @Column({nullable :true})
     description?: string;
 
     @CreateDateColumn()

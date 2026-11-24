@@ -1,4 +1,4 @@
-﻿import { IsString, IsNotEmpty} from 'class-validator';
+﻿import { IsString, IsNotEmpty, IsOptional} from 'class-validator';
 
 
 export class CreateRoleDto {
@@ -7,7 +7,9 @@ export class CreateRoleDto {
     @IsNotEmpty({message: 'role_name es requerido'})
     role_name: string;
 
+    
     @IsString()
+    @IsOptional()
     description?: string;   
 
 }
