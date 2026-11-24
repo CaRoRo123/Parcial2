@@ -30,7 +30,7 @@ export class UsersService {
       throw new NotFoundException("No se encontro un usuario con el id ${id}" );
     }
     const {password, ...userSincontrasena} = usuario 
-
+    
     return userSincontrasena
   }
 
@@ -50,6 +50,7 @@ export class UsersService {
       rolesAsignar.push(roleEntity);
     }
     user.roles = rolesAsignar;
+    
     await this.userRepository.save(user);
     return { message: 'Roles asignados' };
   }

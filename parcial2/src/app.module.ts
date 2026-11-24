@@ -14,6 +14,9 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthenticationGuard } from '@nestjs/authentication';
 import { AuthorizationGuard,AuthorizationModule } from '@nestjs/authorization';
 import { AdminPolicy } from './auth/policies/admin.policy.js';
+import { ParkingSpotsModule } from './parking-spots/parking-spots.module.js';
+import { ReservationsModule } from './reservations/reservations.module.js';
+import { ParkingSpotsModule } from './parking-spots/parking-spots.module.js';
 
 @Module({
   imports: [
@@ -33,13 +36,14 @@ import { AdminPolicy } from './auth/policies/admin.policy.js';
         password: config.get<string>('DB_PASS'),
         database: config.get<string>('DB_NAME'),
         autoLoadEntities: true,
-        // El esquema se administra con SQL; synchronize no puede migrar el join table legado con datos.
-        synchronize: false,
+        synchronize: true,
     }),
   }),
     AuthModule,
     UsersModule,
     RolesModule,
+    ParkingSpotsModule,
+    ReservationsModule,
 ],
   controllers: [AppController],
   providers: [AppService, AdminPolicy, { provide: APP_GUARD, useClass: AuthenticationGuard }, { provide: APP_GUARD, useClass: AuthorizationGuard }],
